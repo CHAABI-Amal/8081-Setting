@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ChaabiAmal</groupId>
-    <artifactId>SpringBoot_Cassandra_demo</artifactId>
+    <artifactId>8081-Setting</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>SpringBoot_Cassandra_demo</name>
     <description>SpringBoot_Cassandra_demo</description>
@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <!-- Ajoutez la version de MapStruct -->
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
     </properties>
     <dependencies>
         <!-- Ajoutez la dépendance MapStruct -->
@@ -93,9 +94,30 @@
             <artifactId>java-driver-core</artifactId>
             <version>4.13.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+        </dependency>
     </dependencies>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>

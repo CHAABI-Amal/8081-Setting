@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StatusRepository extends CassandraRepository<Status, Integer> {
 
-    @Query("SELECT * FROM mykeyspace.Status WHERE Value = ?0") // Specify keyspace and table name
+    @Query("SELECT * FROM mykeyspace1.Status WHERE Value = ?0") // Specify keyspace and table name
     Status findByValue(TypeStatus statu);
 }

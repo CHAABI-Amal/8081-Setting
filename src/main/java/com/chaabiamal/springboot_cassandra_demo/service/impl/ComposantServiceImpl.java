@@ -26,75 +26,6 @@ public class ComposantServiceImpl implements ComposantService {
     }
 
 
-//**********************
-
-
-    public String checkAdditionalInfo(String additionalInfo, String valueToCheck) {
-        if (additionalInfo == null || valueToCheck == null) {
-            return "AdditionalInfo or valueToCheck is null";
-        }
-        String[] valuesToCheck = valueToCheck.split(",");
-        int index = valueToCheck.indexOf(",");
-        valueToCheck= valueToCheck.substring(index + 1);
-        if(index<0) valueToCheck=null;
-        for (String value : valuesToCheck) {
-            String[] keyValue = value.split(":");
-            String value1 = keyValue[0].trim();
-            if (additionalInfo.contains(value1)) {
-                return checkValue(additionalInfo, value, valueToCheck);
-            }
-        }
-        return "None of the specified values found in AdditionalInfo";
-    }
-
-    private String checkValue(String additionalInfo, String valueToCheck,String reste) {
-        int check=0;
-        String[] parts = additionalInfo.split(",valueToCheck");
-        for (String part : parts) {
-
-            String[] keyValue1 = part.split(":");
-            String key1 = keyValue1[0].trim();
-            //***
-            String[] keyValue2 = valueToCheck.split(":");
-            String key2 = keyValue2[0].trim();
-            if (key1.contains(key2)) {
-                String value = keyValue2[1].trim();
-                try {
-                    int intValue = Integer.parseInt(value);
-                    if (valueToCheck.equals("RAM") || valueToCheck.equals("CPU")) {
-                        if (intValue < 20) {
-                            System.out.println(valueToCheck + " usage is less than 20%"); ;
-                            check=1;
-                        } else if (intValue > 80) {
-                            System.out.println(valueToCheck + " usage is more than 80%");check=2;
-
-                        } else {
-                            System.out.println(valueToCheck + " usage is within acceptable range");check=3;
-                        }
-                    } else if (key1.equals("C") || key1.equals("D")) {
-                        // Assuming it's disk usage, same logic as RAM and CPU
-                        if (intValue < 20) {
-                            System.out.println(valueToCheck + " disk usage is less than 20%");check=4;
-                        } else if (intValue > 80) {
-                            System.out.println(valueToCheck + " disk usage is more than 80%");check=5;
-                        } else {
-                            System.out.println(valueToCheck + " disk usage is within acceptable range");check=6;
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                    // Not a valid integer value
-                    System.out.println("Invalid value format in AdditionalInfo");check=7;
-                }
-                checkAdditionalInfo(part,reste);
-            }
-        }
-        if(check==0) {
-            return "Value not found in AdditionalInfo";
-        }
-        return check+"done check";
-    }
-
-
 
    //****************************
    @Override
@@ -124,44 +55,43 @@ public class ComposantServiceImpl implements ComposantService {
                     if (composantDTO.id() != null) {
                         existingComposant.setId(composantDTO.id());
                     }
+
                     if (composantDTO.lastStatus() != null) {
                         existingComposant.setLastStatus(composantDTO.lastStatus());
                     }
                     if (composantDTO.isdeleted()) {
                         existingComposant.setIsdeleted(composantDTO.isdeleted());
                     }
-                    if (0<composantDTO.status()&& composantDTO.status()<5) {
-                        existingComposant.setStatus(composantDTO.status());
+                    if (0<composantDTO.statusId()&& composantDTO.statusId()<5) {
+                        existingComposant.setStatusId(composantDTO.statusId());
                     }
-                    if (composantDTO.instanceName() != null) {
-                        existingComposant.setInstanceName(composantDTO.instanceName());
+                    if (composantDTO.name() != null) {
+                        existingComposant.setName(composantDTO.name());
                     }
-                    if (composantDTO.additionalInfo() != null) {
-                        existingComposant.setAdditionalInfo(composantDTO.additionalInfo());
+                    if (composantDTO.value() != null) {
+                        existingComposant.setValue(composantDTO.value());
                     }
-                    if (composantDTO.componentTypeId() != null) {
+                    if (composantDTO.componentTypeId()>0) {
                         existingComposant.setComponentTypeId(composantDTO.componentTypeId());
                     }
-                    if (composantDTO.instanceCode() != null) {
-                        existingComposant.setInstanceCode(composantDTO.instanceCode());
+                    if (composantDTO.code() != null) {
+                        existingComposant.setCode(composantDTO.code());
                     }
-                    if (composantDTO.kioskId() != null) {
-                        existingComposant.setKioskId(composantDTO.kioskId());
+                    if (composantDTO.machineId() != null) {
+                        existingComposant.setMachineId(composantDTO.machineId());
                     }
-                    if (composantDTO.modelNumber() != null) {
-                        existingComposant.setModelNumber(composantDTO.modelNumber());
+                    if (composantDTO.model() != null) {
+                        existingComposant.setModel(composantDTO.model());
                     }
-                    if (composantDTO.componentStatus() != null) {
-                        existingComposant.setComponentStatus(composantDTO.componentStatus());
+
+                    if (composantDTO.lastStatusChangeTime() != null) {
+                        existingComposant.setLastStatusChangeTime(composantDTO.lastStatusChangeTime());
                     }
-                    if (composantDTO.statusDate() != null) {
-                        existingComposant.setStatusDate(composantDTO.statusDate());
+                    if (composantDTO.composantCreatedDate() != null) {
+                        existingComposant.setComposantCreatedDate(composantDTO.composantCreatedDate());
                     }
-                    if (composantDTO.createdDate() != null) {
-                        existingComposant.setCreatedDate(composantDTO.createdDate());
-                    }
-                    if (composantDTO.modifiedDate() != null) {
-                        existingComposant.setModifiedDate(composantDTO.modifiedDate());
+                    if (composantDTO.composantModifiedDate()!= null) {
+                        existingComposant.setComposantModifiedDate(composantDTO.composantModifiedDate());
                     }
 
                     Composant updatedComposant = composantRepository.save(existingComposant);

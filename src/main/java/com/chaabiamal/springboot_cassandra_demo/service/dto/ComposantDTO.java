@@ -6,19 +6,18 @@ import java.util.UUID;
 
 
 public record ComposantDTO(
+
         UUID id,
-        int  status,
-        String additionalInfo,
+        String name,
+        int statusId,
+        String value,
         LocalDateTime lastStatusChangeTime,
         String lastStatus,
-        String instanceCode,
-        UUID kioskId,
-        String instanceName,
-        Integer componentTypeId,
-        String modelNumber,
-        String componentStatus,
-        LocalDateTime statusDate,
+        String code,
+        UUID machineId,
+        int componentTypeId,
+        String model,
         boolean isdeleted,
-        LocalDateTime createdDate,
-        LocalDateTime modifiedDate
+        LocalDateTime composantCreatedDate,
+        LocalDateTime composantModifiedDate
 ) {}

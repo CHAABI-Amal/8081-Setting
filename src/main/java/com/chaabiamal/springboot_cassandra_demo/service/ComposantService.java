@@ -24,6 +24,4 @@ public interface ComposantService {
 
     void delete(UUID id);
 
-
-    String checkAdditionalInfo(String additionalInfo, String addinfo);
 }

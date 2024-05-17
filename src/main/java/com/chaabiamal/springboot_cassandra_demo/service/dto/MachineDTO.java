@@ -1,15 +1,15 @@
 package com.chaabiamal.springboot_cassandra_demo.service.dto;
 
-import java.net.Inet4Address;
 import java.util.UUID;
 
 
-public record KioskDTO(
-        UUID kioskId,
+public record MachineDTO(
+        UUID machineId,
+        UUID typeId,
         String name,
         String code,
-        boolean isOnline,
+        boolean isonline,
         String description,
         String ipAddress,
-        String machineName
+        String status
 ) {}

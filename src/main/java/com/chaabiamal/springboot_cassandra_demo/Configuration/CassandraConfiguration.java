@@ -2,7 +2,6 @@ package com.chaabiamal.springboot_cassandra_demo.Configuration;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.cassandra.CqlSessionBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -11,16 +10,9 @@ import org.springframework.data.cassandra.config.CqlSessionFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.core.convert.CassandraConverter;
-import org.springframework.data.cassandra.core.convert.CassandraCustomConversions;
 import org.springframework.data.cassandra.core.convert.MappingCassandraConverter;
-import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecification;
-import org.springframework.data.cassandra.core.cql.keyspace.KeyspaceOption;
 import org.springframework.data.cassandra.core.mapping.BasicCassandraMappingContext;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
-
-import java.nio.file.Path;
-import java.util.Collections;
-import java.util.List;
 
 @Configuration
 @EnableCassandraRepositories(basePackages = {"com.chaabiamal.springboot_cassandra_demo.repository"})

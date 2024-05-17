@@ -22,85 +22,73 @@ public class Composant implements Serializable {
 	@CassandraType(type = CassandraType.Name.UUID)
 	@Column(value = "id")
 	private UUID id;
-
+	@CassandraType(type = CassandraType.Name.TEXT)
+	@Column(value = "name")
+	private String name;
 	@CassandraType(type = CassandraType.Name.INT)
-	@Column(value = "status")
-	private int status;
+	@Column(value = "statusid")
+	private int statusId;
 
 	@CassandraType(type = CassandraType.Name.TEXT)
-	@Column(value = "additionalinfo")
-	private String additionalInfo;
+	@Column(value = "value")
+	private String value;// 80% , 50% ............
 
 	@CassandraType(type = CassandraType.Name.TIMESTAMP)
 	@Column(value = "laststatuschangetime")
-	private LocalDateTime lastStatusChangeTime;
+	private LocalDateTime lastStatusChangeTime;// date de status actuelle
 
 	@CassandraType(type = CassandraType.Name.TEXT)
 	@Column(value = "laststatus")
-	private String lastStatus;
+	private String lastStatus;// status actuelle
 
 	@CassandraType(type = CassandraType.Name.TEXT)
-	@Column(value = "instancecode")
-	private String instanceCode;
+	@Column(value = "code")
+	private String code;
 
 	@CassandraType(type = CassandraType.Name.UUID)
-	@Column(value = "kioskid")
-	private UUID kioskId;
+	@Column(value = "machineid")
+	private UUID machineId;
 
-	@CassandraType(type = CassandraType.Name.TEXT)
-	@Column(value = "instancename")
-	private String instanceName;
 
 	@CassandraType(type = CassandraType.Name.INT)
 	@Column(value = "componenttypeid")
-	private Integer componentTypeId;
+	private int componentTypeId;
 
 	@CassandraType(type = CassandraType.Name.TEXT)
-	@Column(value = "modelnumber")
-	private String modelNumber;
-
-	@CassandraType(type = CassandraType.Name.TEXT)
-	@Column(value = "componentstatus")
-	private String componentStatus;
-
-	@CassandraType(type = CassandraType.Name.TIMESTAMP)
-	@Column(value = "statusdate")
-	private LocalDateTime statusDate;
+	@Column(value = "model")
+	private String model;
 
 	@CassandraType(type = CassandraType.Name.BOOLEAN)
 	@Column(value = "isdeleted")
 	private boolean isdeleted;
 
 	@CassandraType(type = CassandraType.Name.TIMESTAMP)
-	@Column(value = "createddate")
-	private LocalDateTime createdDate;
+	@Column(value = "composantcreateddate")
+	private LocalDateTime composantCreatedDate;
 
 	@CassandraType(type = CassandraType.Name.TIMESTAMP)
-	@Column(value = "modifieddate")
-	private LocalDateTime modifiedDate;
+	@Column(value = "composantmodifieddate")
+	private LocalDateTime composantModifiedDate;
 
 	//****************************************
 	// Constructeur
 	public Composant() {
 	}
 
-	public Composant(UUID id,  int status, String additionalInfo, LocalDateTime lastStatusChangeTime, String lastStatus, String instanceCode, UUID kioskId, String instanceName, Integer componentTypeId, String modelNumber, String componentStatus, LocalDateTime statusDate, boolean isdeleted, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+	public Composant(UUID id, String name, int statusId, String value, LocalDateTime lastStatusChangeTime, String lastStatus, String code, UUID machineId, int componentTypeId, String model, boolean isdeleted, LocalDateTime composantCreatedDate, LocalDateTime composantModifiedDate) {
 		this.id = id;
-
-		this.status = status;
-		this.additionalInfo = additionalInfo;
+		this.name = name;
+		this.statusId = statusId;
+		this.value = value;
 		this.lastStatusChangeTime = lastStatusChangeTime;
 		this.lastStatus = lastStatus;
-		this.instanceCode = instanceCode;
-		this.kioskId = kioskId;
-		this.instanceName = instanceName;
+		this.code = code;
+		this.machineId = machineId;
 		this.componentTypeId = componentTypeId;
-		this.modelNumber = modelNumber;
-		this.componentStatus = componentStatus;
-		this.statusDate = statusDate;
+		this.model = model;
 		this.isdeleted = isdeleted;
-		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
+		this.composantCreatedDate = composantCreatedDate;
+		this.composantModifiedDate = composantModifiedDate;
 	}
 
 	public UUID getId() {
@@ -111,20 +99,28 @@ public class Composant implements Serializable {
 		this.id = id;
 	}
 
-	public int getStatus() {
-		return status;
+	public String getName() {
+		return name;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getAdditionalInfo() {
-		return additionalInfo;
+	public int getStatusId() {
+		return statusId;
 	}
 
-	public void setAdditionalInfo(String additionalInfo) {
-		this.additionalInfo = additionalInfo;
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public LocalDateTime getLastStatusChangeTime() {
@@ -143,61 +139,38 @@ public class Composant implements Serializable {
 		this.lastStatus = lastStatus;
 	}
 
-	public String getInstanceCode() {
-		return instanceCode;
+	public String getCode() {
+		return code;
 	}
 
-	public void setInstanceCode(String instanceCode) {
-		this.instanceCode = instanceCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public UUID getKioskId() {
-		return kioskId;
+	public UUID getMachineId() {
+		return machineId;
 	}
 
-	public void setKioskId(UUID kioskId) {
-		this.kioskId = kioskId;
+	public void setMachineId(UUID machineId) {
+		this.machineId = machineId;
 	}
 
-	public String getInstanceName() {
-		return instanceName;
-	}
-
-	public void setInstanceName(String instanceName) {
-		this.instanceName = instanceName;
-	}
-
-	public Integer getComponentTypeId() {
+	public int getComponentTypeId() {
 		return componentTypeId;
 	}
 
-	public void setComponentTypeId(Integer componentTypeId) {
+	public void setComponentTypeId(int componentTypeId) {
 		this.componentTypeId = componentTypeId;
 	}
 
-	public String getModelNumber() {
-		return modelNumber;
+	public String getModel() {
+		return model;
 	}
 
-	public void setModelNumber(String modelNumber) {
-		this.modelNumber = modelNumber;
+	public void setModel(String model) {
+		this.model = model;
 	}
 
-	public String getComponentStatus() {
-		return componentStatus;
-	}
-
-	public void setComponentStatus(String componentStatus) {
-		this.componentStatus = componentStatus;
-	}
-
-	public LocalDateTime getStatusDate() {
-		return statusDate;
-	}
-
-	public void setStatusDate(LocalDateTime statusDate) {
-		this.statusDate = statusDate;
-	}
 
 	public boolean isIsdeleted() {
 		return isdeleted;
@@ -207,19 +180,19 @@ public class Composant implements Serializable {
 		this.isdeleted = isdeleted;
 	}
 
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
+	public LocalDateTime getComposantCreatedDate() {
+		return composantCreatedDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
+	public void setComposantCreatedDate(LocalDateTime composantCreatedDate) {
+		this.composantCreatedDate = composantCreatedDate;
 	}
 
-	public LocalDateTime getModifiedDate() {
-		return modifiedDate;
+	public LocalDateTime getComposantModifiedDate() {
+		return composantModifiedDate;
 	}
 
-	public void setModifiedDate(LocalDateTime modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setComposantModifiedDate(LocalDateTime composantModifiedDate) {
+		this.composantModifiedDate = composantModifiedDate;
 	}
 }
