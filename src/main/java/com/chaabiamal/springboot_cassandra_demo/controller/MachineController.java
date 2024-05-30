@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import static org.springframework.boot.web.servlet.filter.ApplicationContextHead
 
 @RestController
 @RequestMapping("/amal/machines")
+@CrossOrigin("*")
 public class MachineController {
 
     @Autowired
@@ -47,7 +49,7 @@ public class MachineController {
 /**/
     @GetMapping("{id}")
     public ResponseEntity<MachineDTO> findById(@PathVariable("id") UUID kioskId) {
-        Machine machine = machineRepository.findById(kioskId).orElseThrow(
+        Machine machine = machineRepository.findByid(kioskId).orElseThrow(
                 () -> new ResourceNotFoundException("Machine not found" + kioskId));
         MachineDTO machineDTO = machineMapper.toDto(machine);
         return ResponseEntity.ok().body(machineDTO);
@@ -62,9 +64,17 @@ public class MachineController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteMachine(@PathVariable(value = "id") UUID kioskId) {
-        machineRepository.deleteById(kioskId);
+    public ResponseEntity<Void> deleteMachine(@PathVariable(value = "id") UUID machineId) {
+        machineRepository.deleteByid(machineId);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<MachineDTO> partialUpdateMachine(@PathVariable("id") UUID machineId, @Valid @RequestBody MachineDTO machineDTO) {
+        Optional<MachineDTO> updatedMachineDTO = machineService.partialUpdate(machineId, machineDTO);
+        return updatedMachineDTO.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
 }

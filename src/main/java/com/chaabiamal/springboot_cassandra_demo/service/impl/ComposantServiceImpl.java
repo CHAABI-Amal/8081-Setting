@@ -28,6 +28,7 @@ public class ComposantServiceImpl implements ComposantService {
 
 
    //****************************
+
    @Override
    public Optional<ComposantDTO> findById(UUID id) {
        return composantRepository.findComposantById(id).map(composantMapper::toDto);
@@ -59,6 +60,9 @@ public class ComposantServiceImpl implements ComposantService {
                     if (composantDTO.lastStatus() != null) {
                         existingComposant.setLastStatus(composantDTO.lastStatus());
                     }
+                    if (composantDTO.currentStatus() != null) {
+                        existingComposant.setCurrentStatus(composantDTO.currentStatus());
+                    }
                     if (composantDTO.isdeleted()) {
                         existingComposant.setIsdeleted(composantDTO.isdeleted());
                     }
@@ -87,6 +91,7 @@ public class ComposantServiceImpl implements ComposantService {
                     if (composantDTO.lastStatusChangeTime() != null) {
                         existingComposant.setLastStatusChangeTime(composantDTO.lastStatusChangeTime());
                     }
+
                     if (composantDTO.composantCreatedDate() != null) {
                         existingComposant.setComposantCreatedDate(composantDTO.composantCreatedDate());
                     }

@@ -1,4 +1,4 @@
-package com.chaabiamal.springboot_cassandra_demo.model;
+package com.chaabiamal.springboot_cassandra_demo.enums;
 
 import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.UserDefinedType;

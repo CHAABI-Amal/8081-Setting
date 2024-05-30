@@ -39,7 +39,11 @@ public class Composant implements Serializable {
 
 	@CassandraType(type = CassandraType.Name.TEXT)
 	@Column(value = "laststatus")
-	private String lastStatus;// status actuelle
+	private String lastStatus;// status ancienne
+
+	@CassandraType(type = CassandraType.Name.TEXT)
+	@Column(value = "currentstatus")
+	private String currentStatus;
 
 	@CassandraType(type = CassandraType.Name.TEXT)
 	@Column(value = "code")
@@ -75,13 +79,14 @@ public class Composant implements Serializable {
 	public Composant() {
 	}
 
-	public Composant(UUID id, String name, int statusId, String value, LocalDateTime lastStatusChangeTime, String lastStatus, String code, UUID machineId, int componentTypeId, String model, boolean isdeleted, LocalDateTime composantCreatedDate, LocalDateTime composantModifiedDate) {
+	public Composant(UUID id, String name, int statusId, String value, LocalDateTime lastStatusChangeTime, String lastStatus,String currentStatus, String code, UUID machineId, int componentTypeId, String model, boolean isdeleted, LocalDateTime composantCreatedDate, LocalDateTime composantModifiedDate) {
 		this.id = id;
 		this.name = name;
 		this.statusId = statusId;
 		this.value = value;
 		this.lastStatusChangeTime = lastStatusChangeTime;
 		this.lastStatus = lastStatus;
+		this.currentStatus = currentStatus;
 		this.code = code;
 		this.machineId = machineId;
 		this.componentTypeId = componentTypeId;
@@ -194,5 +199,13 @@ public class Composant implements Serializable {
 
 	public void setComposantModifiedDate(LocalDateTime composantModifiedDate) {
 		this.composantModifiedDate = composantModifiedDate;
+	}
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
 	}
 }

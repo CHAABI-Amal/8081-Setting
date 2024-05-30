@@ -5,11 +5,15 @@ import java.util.UUID;
 
 public record MachineDTO(
         UUID machineId,
-        UUID typeId,
         String name,
+        UUID typeId,
+        UUID moduleId,
+        String type,
         String code,
         boolean isonline,
         String description,
         String ipAddress,
-        String status
+        String lastStatus,
+        String currentStatus
+
 ) {}

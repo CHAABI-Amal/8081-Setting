@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface MachineRepository extends CassandraRepository<Machine, UUID> {
 
-    @Query("SELECT * FROM mykeyspace1.Machine WHERE id = ?0") // Specify keyspace and table name
-    Optional<Machine> findById(UUID id);
+    @Query("SELECT * FROM mykeyspace1.Machine WHERE machineid = ?0") // Specify keyspace and table name
+    Optional<Machine> findByid(UUID id);
+    @Query("DELETE FROM mykeyspace1.Machine WHERE machineid = ?0")
+    void deleteByid(UUID id);
 }

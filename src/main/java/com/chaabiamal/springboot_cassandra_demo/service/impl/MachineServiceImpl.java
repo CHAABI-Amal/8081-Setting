@@ -45,7 +45,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public Optional<MachineDTO> partialUpdate(UUID id, MachineDTO machineDTO) {
-        return machineRepository.findById(id)
+        return machineRepository.findByid(id)
                 .map(existingMachine -> {
                     // Map non-null fields from machineDTO to existingMachine
                     if (machineDTO.machineId() != null) {
@@ -53,6 +53,9 @@ public class MachineServiceImpl implements MachineService {
                     }
                     if (machineDTO.typeId() != null) {
                         existingMachine.setTypeId(machineDTO.typeId());
+                    }
+                    if (machineDTO.moduleId() != null) {
+                        existingMachine.setModuleId(machineDTO.moduleId());
                     }
                     if (machineDTO.name() != null) {
                         existingMachine.setName(machineDTO.name());
@@ -69,8 +72,14 @@ public class MachineServiceImpl implements MachineService {
                     if (machineDTO.ipAddress() != null) {
                         existingMachine.setIpAddress(machineDTO.ipAddress());
                     }
-                    if (machineDTO.status() != null) {
-                        existingMachine.setStatus(machineDTO.status());
+                    if (machineDTO.currentStatus()!= null) {
+                        existingMachine.setCurrentStatus(machineDTO.currentStatus());
+                    }
+                    if (machineDTO.lastStatus()!= null) {
+                        existingMachine.setLastStatus(machineDTO.lastStatus());
+                    }
+                    if (machineDTO.type()!= null) {
+                        existingMachine.setType(machineDTO.type());
                     }
 
                     Machine updatedMachine = machineRepository.save(existingMachine);

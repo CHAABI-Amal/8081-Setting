@@ -13,6 +13,7 @@ public record ComposantDTO(
         String value,
         LocalDateTime lastStatusChangeTime,
         String lastStatus,
+        String currentStatus,
         String code,
         UUID machineId,
         int componentTypeId,

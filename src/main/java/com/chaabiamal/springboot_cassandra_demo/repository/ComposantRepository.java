@@ -5,6 +5,7 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.data.cassandra.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 @Repository
@@ -27,4 +28,6 @@ public interface ComposantRepository extends CassandraRepository<Composant, UUID
 
     @Query("SELECT value FROM mykeyspace1.composant WHERE id = ?0 ALLOW FILTERING")
     String findValueBycomposantID(UUID id);
+    @Query("SELECT * FROM mykeyspace1.composant WHERE machineId = ?0 ALLOW FILTERING")
+    List<Composant> findByidMachine(UUID machineId);
 }

@@ -11,15 +11,26 @@ public class Machine {
     @CassandraType(type = CassandraType.Name.UUID)
     @Column("machineid")
     private UUID machineId;
-    @Column("typeid")
-    @CassandraType(type = CassandraType.Name.UUID)
-    private UUID typeId;
-    @Column("name")
-    @CassandraType(type = CassandraType.Name.TEXT)
-    private String name;
+
     @Column("code")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String code;
+
+    @Column("typeid")
+    @CassandraType(type = CassandraType.Name.UUID)
+    private UUID typeId;
+    @Column("modelid")
+    @CassandraType(type = CassandraType.Name.UUID)
+    private UUID moduleId;
+    @Column("name")
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String name;
+
+    @Column("type")
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String type;
+
+
     @Column("isonline")
     @CassandraType(type = CassandraType.Name.BOOLEAN)
     private boolean isonline;
@@ -29,22 +40,31 @@ public class Machine {
     @Column("ipaddress")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String ipAddress;
-    @Column("status")
+
     @CassandraType(type = CassandraType.Name.TEXT)
-    private String status;
-//*********************888
+    private String lastStatus;
+
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String currentStatus;
+
+    //*********************888
     public Machine() {
     }
-    public Machine(UUID machineId, UUID typeId, String name, String code, boolean isonline, String description, String ipAddress, String status) {
+
+    public Machine(UUID machineId, String code, UUID typeId, UUID modelId, String name, String type, boolean isonline, String description, String ipAddress, String lastStatus, String currentStatus) {
         this.machineId = machineId;
-        this.typeId = typeId;
-        this.name = name;
         this.code = code;
+        this.typeId = typeId;
+        this.moduleId = modelId;
+        this.name = name;
+        this.type = type;
         this.isonline = isonline;
         this.description = description;
         this.ipAddress = ipAddress;
-        this.status = status;
+        this.lastStatus = lastStatus;
+        this.currentStatus = currentStatus;
     }
+
     public boolean isIsonline() {
         return isonline;
     }
@@ -99,11 +119,35 @@ public class Machine {
         this.ipAddress = ipAddress;
     }
 
-    public String getStatus() {
-        return status;
+    public String getType() {
+        return type;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getLastStatus() {
+        return lastStatus;
+    }
+
+    public void setLastStatus(String lastStatus) {
+        this.lastStatus = lastStatus;
+    }
+
+    public String getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    public UUID getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(UUID moduleId) {
+        this.moduleId = moduleId;
     }
 }

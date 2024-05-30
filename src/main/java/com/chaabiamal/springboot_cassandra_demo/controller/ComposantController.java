@@ -24,10 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,6 +34,7 @@ import static org.springframework.boot.web.servlet.filter.ApplicationContextHead
 @RestController
 
 @RequestMapping("/amal/composants")
+@CrossOrigin("*")
 public class ComposantController {
     @Autowired
     private final ComposantService composantService;
@@ -50,12 +48,6 @@ public class ComposantController {
         this.composantService = composantService;
     }
 //*********************************************
-    @GetMapping("/paged")
-    public ResponseEntity<Page<ComposantDTO>> getComposantsPaged(@RequestParam int page, @RequestParam int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<ComposantDTO> composantsPage = composantService.findAll(pageable);
-        return ResponseEntity.ok(composantsPage);
-    }
     @GetMapping("")
     public List<ComposantDTO> getComposant() {
         List<Composant> composants = composantRepository.findAll();
@@ -139,5 +131,23 @@ public class ComposantController {
         return ResponseEntity.ok(updatedComposantDTO);
     }
 
+
+    @GetMapping("/machine-details/{machineId}")
+    public ResponseEntity<List<ComposantDTO>> findByIdMachine(@PathVariable("machineId") UUID machineId) {
+        List<Composant> Composants = composantRepository.findByidMachine(machineId);
+
+        if (Composants.isEmpty()) {
+            // Si aucun historique n'est trouvé, renvoyer une liste vide avec un statut 200
+            List<ComposantDTO> historiqueComposantDTOs = new ArrayList<>(); // Utilisation de ArrayList pour une liste vide
+            return ResponseEntity.ok().body(historiqueComposantDTOs);
+        }
+
+        // Si l'historique est trouvé, mapper les objets en DTO et renvoyer la liste avec un statut 200
+        List<ComposantDTO> historiqueComposantDTOs = Composants.stream()
+                .map(composantMapper::toDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(historiqueComposantDTOs);
+    }
 
 }
